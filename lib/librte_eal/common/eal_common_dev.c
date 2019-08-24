@@ -214,10 +214,11 @@ rte_dev_probe(const char *devargs)
 				"Failed to send hotplug request to primary\n");
 			return -ENOMSG;
 		}
-		if (req.result != 0)
+		if (req.result != 0) {
 			RTE_LOG(ERR, EAL,
 				"Failed to hotplug add device\n");
-		return req.result;
+			return req.result;
+		}
 	}
 
 	/* attach a shared device from primary start from here: */
@@ -360,10 +361,11 @@ rte_dev_remove(struct rte_device *dev)
 				"Failed to send hotplug request to primary\n");
 			return -ENOMSG;
 		}
-		if (req.result != 0)
+		if (req.result != 0) {
 			RTE_LOG(ERR, EAL,
 				"Failed to hotplug remove device\n");
-		return req.result;
+			return req.result;
+		}
 	}
 
 	/* detach a device from primary start from here: */
