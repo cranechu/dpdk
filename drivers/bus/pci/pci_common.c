@@ -553,6 +553,8 @@ pci_dma_map(struct rte_device *dev, void *addr, uint64_t iova, size_t len)
 	}
 	if (pdev->driver->dma_map)
 		return pdev->driver->dma_map(pdev, addr, iova, len);
+
+#ifdef VFIO_PRESENT  
 	/**
 	 *  In case driver don't provides any specific mapping
 	 *  try fallback to VFIO.
@@ -561,6 +563,8 @@ pci_dma_map(struct rte_device *dev, void *addr, uint64_t iova, size_t len)
 		return rte_vfio_container_dma_map
 				(RTE_VFIO_DEFAULT_CONTAINER_FD, (uintptr_t)addr,
 				 iova, len);
+#endif
+  
 	rte_errno = ENOTSUP;
 	return -1;
 }
@@ -576,6 +580,8 @@ pci_dma_unmap(struct rte_device *dev, void *addr, uint64_t iova, size_t len)
 	}
 	if (pdev->driver->dma_unmap)
 		return pdev->driver->dma_unmap(pdev, addr, iova, len);
+
+#ifdef VFIO_PRESENT  
 	/**
 	 *  In case driver don't provides any specific mapping
 	 *  try fallback to VFIO.
@@ -584,6 +590,8 @@ pci_dma_unmap(struct rte_device *dev, void *addr, uint64_t iova, size_t len)
 		return rte_vfio_container_dma_unmap
 				(RTE_VFIO_DEFAULT_CONTAINER_FD, (uintptr_t)addr,
 				 iova, len);
+#endif
+  
 	rte_errno = ENOTSUP;
 	return -1;
 }
