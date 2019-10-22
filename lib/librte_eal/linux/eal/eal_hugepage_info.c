@@ -115,7 +115,7 @@ get_num_hugepages(const char *subdir)
 		over_pages = 0;
 
 	if (num_pages == 0 && over_pages == 0)
-		RTE_LOG(WARNING, EAL, "No available hugepages reported in %s\n",
+		RTE_LOG(DEBUG, EAL, "No available hugepages reported in %s\n",
 				subdir);
 
 	num_pages += over_pages;
