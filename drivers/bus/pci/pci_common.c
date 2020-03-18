@@ -150,7 +150,7 @@ rte_pci_probe_one_driver(struct rte_pci_driver *dr,
 	}
 
 	if (dev->device.numa_node < 0) {
-		RTE_LOG(WARNING, EAL, "  Invalid NUMA socket, default to 0\n");
+		RTE_LOG(INFO, EAL, "  Invalid NUMA socket, default to 0\n");
 		dev->device.numa_node = 0;
 	}
 
